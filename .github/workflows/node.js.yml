@@ -1,0 +1,42 @@
+name: Continues Integration
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - run: yarn install
+      - run: yarn build
+      - run: cd build/ && tar -cvf build.tar.gz *
+      - name: Copy tar file
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: build/build.tar.gz
+          remote: /var/www/sencillo/build.tar.gz
+          host: ${{ secrets.HOST }}
+          port: 22
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.PASSWORD }}
+      - name: Run untar on server
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: cd /var/www/sencillo/ && rm -rf ${{ secrets.FOLDER_NAME }} && mkdir ${{ secrets.FOLDER_NAME }} && tar -xvf build.tar.gz -C ${{ secrets.FOLDER_NAME }} && rm build.tar.gz
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.PASSWORD }}
