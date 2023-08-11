@@ -3,7 +3,12 @@ import openSocket from "socket.io-client";
 
 const socket = openSocket(baseURL.replace(".ar/api", ".ar"));
 
+
 socket.on("connected", () => console.debug("Socket Conectado")); //eslint-disable-line
+
+export const subscribeToChats = (handleSocketUpdate) => {
+  socket.on("Chats", handleSocketUpdate);
+};
 
 export const subscribeToRevision = (handleSocketUpdate) => {
   socket.on("revision", handleSocketUpdate);
@@ -16,3 +21,5 @@ export const subscribeToNuevoPedido = (handleNuevoPedidoUpadate) => {
 export const unSubscribeAll = () => {
   socket.off();
 };
+
+

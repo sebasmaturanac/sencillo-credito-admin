@@ -68,6 +68,7 @@ export default function NotificationPage() {
       try {
         setLoading(true);
         const { respuesta } = await API.get("/message");
+        console.log('respuesta mensajes chat: ', respuesta)
         setNotifications(respuesta);
         setNotificationFiltered(respuesta);
       } catch (error) {

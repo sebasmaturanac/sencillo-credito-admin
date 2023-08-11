@@ -45,8 +45,8 @@ const sidebarConfig = () => [
   {
     title: "Notificaciones",
     path: "/dashboard/notificaciones",
-    icon: getIcon("ion:mail-notification"),
-    allowedRoles: [ROLE.SUPERUSER, ROLE.AUTORIZADOR],
+    icon: getIcon("eva:bell-fill"),
+    allowedRoles:[ROLE.SUPERUSER, ROLE.AUTORIZADOR],
   },
   {
     title: "Usuarios",
@@ -59,6 +59,12 @@ const sidebarConfig = () => [
     path: "/dashboard/configuraciones",
     icon: getIcon("ci:settings-filled"),
     allowedRoles: [ROLE.SUPERUSER, ROLE.AUTORIZADOR],
+  },
+  {
+    title: "Chats",
+    path: "/dashboard/chats",
+    icon: getIcon("ion:mail-notification"),
+    allowedRoles:[]// [ROLE.SUPERUSER, ROLE.AUTORIZADOR],
   },
 ];
 

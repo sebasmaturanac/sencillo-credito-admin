@@ -16,6 +16,7 @@ import { ROLE } from "types/role";
 import EstadoCuenta from "pages/estadoCuenta";
 import PublicPage from "components/PublicPage.js";
 import NotificationPage from "pages/notification";
+import ChatsPage from "pages/chats";
 
 export default function Router() {
   return useRoutes([
@@ -27,6 +28,7 @@ export default function Router() {
         { path: "pedidos", element: <ProtectedPage element={<PedidosPage />} /> },
         { path: "estadoCuenta", element: <ProtectedPage element={<EstadoCuenta />} /> },
         { path: "notificaciones", element: <ProtectedPage element={<NotificationPage />} /> },
+        { path: "chats", element: <ProtectedPage element={<ChatsPage />} /> },
         {
           path: "usuarios",
           element: <ProtectedPage roles={[ROLE.SUPERUSER, ROLE.AUTORIZADOR]} element={<UsuariosPage />} />,
